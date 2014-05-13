@@ -1,0 +1,115 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+apply plugin: 'android-library'
+
+version = '1.0-SNAPSHOT'
+def repositoryUrl = project.hasProperty('sonatypeUrl') ? sonatypeUrl : 'http://192.168.10.128:8081'
+def repositoryUsername = project.hasProperty('sonatypeUsername') ? sonatypeUsername : 'admin'
+def repositoryPassword = project.hasProperty('sonatypePassword') ? sonatypePassword : 'admin123'
+def isReleaseVersion = !version.endsWith('SNAPSHOT')
+def artifact = 'caNoPreschool-account'
+project.ext.set('artifact', artifact)
+
+uploadArchives.dependsOn 'build'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.0.0'
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+    }
+}
+
+/*repositories {
+    mavenCentral()
+}*/
+
+dependencies {
+    //compile 'com.android.support:appcompat-v7:+'
+    compile 'com.octo.android.robospice:robospice-spring-android:1.4.9'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.9'
+    compile 'net.hockeyapp.android:HockeySDK:3.0.1'
+    compile project(':CNP_Base')
+    compile project(':CNP_School')
+}
+
+
+
+def getPomConfiguration() {
+    return {
+        groupId project.group
+        artifactId project.artifact
+        version project.version
+        packaging 'aar'
+        name 'CaNoPreschool account'
+        description 'Capital Normal preschool Project for account library'
+        url 'https://github.com/hyrtyp/CNP_Account'
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        scm {
+            url 'https://github.com/hyrtyp/CNP_Account.git'
+            connection 'scm:git://github.com/hyrtyp/CNP_Account.git'
+            developerConnection 'scm:git@github.com/hyrtyp/CNP_Account.git'
+        }
+        developers {
+            developer {
+                id 'hyrtyp'
+                name 'yepeng'
+                email '13718868826@163.com'
+            }
+            developer {
+                id 'gyh'
+                name 'guoyuehua'
+                email '790005156@qq.com'
+            }
+        }
+    }
+}
+task generatePom << {
+    def generatedPomFileName = 'pom.xml'
+    pom {
+        project(pomConfiguration)
+    }.writeTo("$buildDir/$generatedPomFileName")
+}
+
+signing {
+    if (isReleaseVersion) {
+        sign configurations.archives
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { deployment ->
+                signing.signPom(deployment)
+            }
+
+            if (isReleaseVersion) {
+                repository(url: repositoryUrl+'/nexus/content/repositories/releases/') {
+                    authentication(userName: repositoryUsername, password: repositoryPassword)
+                }
+            } else {
+                repository(url: repositoryUrl+'/nexus/content/repositories/snapshots/') {
+                    authentication(userName: repositoryUsername, password: repositoryPassword)
+                }
+            }
+            pom.project(pomConfiguration)
+        }
+    }
+
+}
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/bg"
+    android:paddingLeft="@dimen/activity_horizontal_margin_small"
+    android:paddingRight="@dimen/activity_horizontal_margin_small"
+    android:paddingTop="@dimen/activity_paddingtop">
+
+    <TextView
+        android:id="@+id/prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/medium_tv"
+        android:text="提示，点击修改资料"
+        android:layout_marginTop="@dimen/view_margin_smallest"
+        android:layout_marginBottom="@dimen/view_margin_smallest"
+        android:layout_gravity="center_horizontal"/>
+    <RelativeLayout
+        style="@style/RelativeLayout"
+        android:background="@null">
+
+        <ListView
+            style="@style/ListView"
+            android:id="@+id/user_info_listview" />
+
+        <Button
+            style="@style/Button"
+            android:layout_below="@+id/user_info_listview"
+            android:text="@string/update_info"
+            android:id="@+id/userinfo_btn" />
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

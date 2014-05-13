@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CNP.iml" filepath="$PROJECT_DIR$/CNP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CNP_Account/CNP_Account.iml" filepath="$PROJECT_DIR$/CNP_Account/CNP_Account.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CNP_Base/CNP_Base.iml" filepath="$PROJECT_DIR$/CNP_Base/CNP_Base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CNP_Classroom/CNP_Classroom.iml" filepath="$PROJECT_DIR$/CNP_Classroom/CNP_Classroom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CNP_Dynamic/CNP_Dynamic.iml" filepath="$PROJECT_DIR$/CNP_Dynamic/CNP_Dynamic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CNP_School/CNP_School.iml" filepath="$PROJECT_DIR$/CNP_School/CNP_School.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
+

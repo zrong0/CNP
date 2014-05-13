@@ -1,0 +1,33 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="layout_actionbar_title_text_size">15sp</dimen>
+    <dimen name="layout_actionbar_title_back_marginLeft">16dp</dimen>
+
+    <dimen name="schoolindex_image_size_w_h">25dp</dimen>
+    <dimen name="cnp_schoolindex_item_height">80dp</dimen>
+    <dimen name="schoolindex_text_marginBottom">6dp</dimen>
+    <dimen name="schoolindex_text_size">12sp</dimen>
+    <dimen name="banner_h_w">160dp</dimen>
+
+    <dimen name="cnp_school_pop_img_height">180dp</dimen>
+    <dimen name="cnp_school_layout_margin">9dp</dimen>
+
+    <!--元素之间的间距-->
+    <dimen name="view_margin">10dp</dimen>
+    <dimen name="view_margin_small">6dp</dimen>
+    <dimen name="view_margin_smallest">2dp</dimen>
+    <dimen name="view_bottom_margin">30dp</dimen>
+    <!--容器控件的外间距-->
+    <dimen name="container_margin">6dp</dimen>
+
+    <!--图片的大小-->
+    <dimen name="imageview_face">275dp</dimen>
+    <dimen name="imageview_biggest">180dp</dimen>
+    <dimen name="imageview_big">130dp</dimen>
+    <dimen name="imageview_medium">80dp</dimen>
+    <dimen name="imageview_small">60dp</dimen>
+    <dimen name="imageview_smallest">50dp</dimen>
+    <dimen name="imageview_super_small">30dp</dimen>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+    <dimen name="layout_actionbar_title_text_size">25sp</dimen>
+    <dimen name="layout_actionbar_title_back_marginLeft">24dp</dimen>
+</resources>

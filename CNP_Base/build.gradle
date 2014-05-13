@@ -1,0 +1,120 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+apply plugin: 'android-library'
+
+/*repositories {
+    mavenCentral()
+}*/
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+    ///compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'org.roboguice:roboguice:2.0'
+    compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.4'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.9'
+    compile 'com.octo.android.robospice:robospice-spring-android:1.4.9'
+    compile 'commons-httpclient:commons-httpclient:3.1'
+    compile 'com.github.chrisbanes.photoview:library:1.2.2'
+    compile files('libs/universal-image-loader-1.9.1.jar')
+    compile 'com.google.inject:guice:4.0-beta:no_aop'
+    compile 'org.roboguice:roboguice:2.0'
+}
+
+version = '1.0-SNAPSHOT'
+def repositoryUrl = project.hasProperty('sonatypeUrl') ? sonatypeUrl : 'http://192.168.10.128:8081'
+def repositoryUsername = project.hasProperty('sonatypeUsername') ? sonatypeUsername : 'admin'
+def repositoryPassword = project.hasProperty('sonatypePassword') ? sonatypePassword : 'admin123'
+def isReleaseVersion = !version.endsWith('SNAPSHOT')
+def artifact = 'cnp-base'
+project.ext.set('artifact', artifact)
+
+uploadArchives.dependsOn 'build'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.0.0'
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+    }
+}
+
+def getPomConfiguration() {
+    return {
+        groupId project.group
+        artifactId project.artifact
+        version project.version
+        packaging 'aar'
+        name 'CaNoPreschool base'
+        description 'Capital Normal preschool Project for base library'
+        url 'https://github.com/hyrtyp/CaNoPreschool_Base'
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        scm {
+            url 'https://github.com/hyrtyp/CNP_Base.git'
+            connection 'scm:git://github.com/hyrtyp/CNP_Base.git'
+            developerConnection 'scm:git@github.com/hyrtyp/CNP_Base.git'
+        }
+        developers {
+            developer {
+                id 'hyrtyp'
+                name 'yepeng'
+                email '13718868826@163.com'
+            }
+            developer {
+                id 'gyh'
+                name 'guoyuehua'
+                email '790005156@qq.com'
+            }
+        }
+    }
+}
+task generatePom << {
+    def generatedPomFileName = 'pom.xml'
+    pom {
+        project(pomConfiguration)
+    }.writeTo("$buildDir/$generatedPomFileName")
+}
+
+signing {
+    if (isReleaseVersion) {
+        sign configurations.archives
+    }
+}
+
+uploadArchives.dependsOn 'build'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { deployment ->
+                signing.signPom(deployment)
+            }
+
+            if (isReleaseVersion) {
+                repository(url: repositoryUrl+'/nexus/content/repositories/releases/') {
+                    authentication(userName: repositoryUsername, password: repositoryPassword)
+                }
+            } else {
+                repository(url: repositoryUrl+'/nexus/content/repositories/snapshots/') {
+                    authentication(userName: repositoryUsername, password: repositoryPassword)
+                }
+            }
+            pom.project(pomConfiguration)
+        }
+    }
+
+}
+
